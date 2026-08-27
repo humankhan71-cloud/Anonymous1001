@@ -7,7 +7,6 @@
     <style>
         * { box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
         
-        /* Light Theme Variables (Default) */
         :root {
             --bg-main: #f0f2f5;
             --bg-card: #ffffff;
@@ -19,7 +18,6 @@
             --primary: #00bcd4;
         }
 
-        /* Dark Theme Variables */
         [data-theme="dark"] {
             --bg-main: #121212;
             --bg-card: #1e1e1e;
@@ -41,17 +39,14 @@
         
         .container { width: 100%; max-width: 500px; padding: 0; background: var(--bg-main); min-height: 100vh; position: relative; }
 
-        /* Top Header */
         .fb-header { background: var(--bg-card); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
         .fb-logo { color: var(--primary); font-size: 22px; font-weight: bold; letter-spacing: -1px; }
         .fb-nav-icons { display: flex; gap: 8px; align-items: center; }
         .fb-icon-btn { background: var(--input-bg); color: var(--primary); border: 1px solid var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
         .fb-icon-btn:hover { opacity: 0.9; }
 
-        /* Cards & Containers */
         .card { background: var(--bg-card); border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 12px; border: 1px solid var(--border-color); }
         
-        /* Auth Screen Styling */
         .auth-container { padding: 20px; text-align: center; background: var(--bg-main); height: 100vh; display: flex; flex-direction: column; justify-content: center; }
         .auth-logo { color: var(--primary); font-size: 36px; font-weight: bold; margin-bottom: 5px; }
         .auth-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 20px; }
@@ -67,13 +62,11 @@
         .tab-btn { background: transparent; border: none; padding: 8px; font-weight: bold; cursor: pointer; flex: 1; border-radius: 4px; color: var(--text-sub); font-size: 14px; }
         .tab-btn.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
-        /* Search Results Box */
         .search-box-wrap { position: relative; padding: 8px 12px; background: var(--bg-main); }
         .search-results { position: absolute; left: 12px; right: 12px; background: var(--bg-card); border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: none; z-index: 99; max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-top: none; }
         .user-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--border-color); cursor: pointer; }
         .user-item:hover { background: var(--hover-bg); }
 
-        /* Post Feed Styling */
         .post-card { background: var(--bg-card); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 12px; padding: 12px; border: 1px solid var(--border-color); }
         .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
@@ -87,9 +80,15 @@
         .profile-view-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin: 12px; }
     </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
 <div class="container">
+    <!-- Loading State Screen -->
+    <div id="loadingBox" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+        <div style="color: var(--primary); font-size: 28px; font-weight: bold; margin-bottom: 10px;">Anonymous1001</div>
+        <p style="color: var(--text-sub); font-size: 14px;">Loading application...</p>
+    </div>
+
     <!-- Auth Screen -->
     <div class="auth-container" id="authBox" style="display: none;">
         <div class="auth-logo">Anonymous1001</div>
@@ -122,7 +121,7 @@
         <div class="fb-header">
             <div class="fb-logo">Anonymous1001</div>
             <div class="fb-nav-icons">
-                <button class="fb-icon-btn" onclick="toggleTheme()" id="themeToggleBtn">☀️ Light</button>
+                <button class="fb-icon-btn" onclick="toggleTheme()" id="themeToggleBtn">🌙 Dark</button>
                 <button class="fb-icon-btn" onclick="shareApp()">🔗 Share</button>
                 <button class="fb-icon-btn" onclick="toggleProfile()">👤 Profile</button>
             </div>
@@ -227,6 +226,7 @@
   };
 
   onAuthStateChanged(auth, async (user) => {
+    document.getElementById('loadingBox').style.display = 'none';
     if (user) {
         currentUserData.uid = user.uid;
         try {
@@ -388,7 +388,4 @@
   };
 
   window.viewUserProfile = (encodedStr) => {
-    const user = JSON.parse(decodeURIComponent(encodedStr));
-    document.getElementById('viewUserName').innerText = user.name;
-    document.getElementById('viewUserUsername').innerText = user.username || "";
-    document.getElementById('viewUserBio').innerText = 
+    const user = JSON.parse(
