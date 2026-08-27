@@ -3,157 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous1001</title>
+    <title>Facebook - Log In or Sign Up</title>
     <style>
-        * { box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+        * { box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
         
-        :root {
-            --bg-main: #f0f2f5;
-            --bg-card: #ffffff;
-            --text-main: #050505;
-            --text-sub: #65676b;
-            --border-color: #dddfe2;
-            --input-bg: #f0f2f5;
-            --hover-bg: #f2f2f2;
-            --primary: #00bcd4;
+        body { 
+            background-color: #f0f2f5; 
+            color: #050505; 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
         }
-
-        [data-theme="dark"] {
-            --bg-main: #121212;
-            --bg-card: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-sub: #aaa;
-            --border-color: #2d2d2d;
-            --input-bg: #2d2d2d;
-            --hover-bg: #333;
-            --primary: #00bcd4;
-        }
-
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 500px; padding: 0; background: var(--bg-main); min-height: 100vh; position: relative; }
-
-        .fb-header { background: var(--bg-card); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .fb-logo { color: var(--primary); font-size: 22px; font-weight: bold; letter-spacing: -1px; }
-        .fb-nav-icons { display: flex; gap: 8px; align-items: center; }
-        .fb-icon-btn { background: var(--input-bg); color: var(--primary); border: 1px solid var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-
-        .card { background: var(--bg-card); border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 12px; border: 1px solid var(--border-color); }
-        .auth-container { padding: 20px; text-align: center; background: var(--bg-main); height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .auth-logo { color: var(--primary); font-size: 36px; font-weight: bold; margin-bottom: 5px; }
-        .auth-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 20px; }
         
-        input, select, textarea { width: 100%; padding: 12px 14px; margin: 6px 0; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-main); font-size: 15px; outline: none; }
-        input:focus, textarea:focus { border-color: var(--primary); }
-        
-        button { width: 100%; padding: 12px; margin-top: 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; }
-        .btn-primary { background: var(--primary); color: #000; }
-        
-        .tab-group { display: flex; background: var(--input-bg); border-radius: 6px; padding: 3px; margin-bottom: 15px; }
-        .tab-btn { background: transparent; border: none; padding: 8px; font-weight: bold; cursor: pointer; flex: 1; border-radius: 4px; color: var(--text-sub); font-size: 14px; }
-        .tab-btn.active { background: var(--bg-card); color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .container { width: 100%; max-width: 500px; padding: 0; background: #f0f2f5; min-height: 100vh; }
 
-        .search-box-wrap { position: relative; padding: 8px 12px; background: var(--bg-main); }
-        .search-results { position: absolute; left: 12px; right: 12px; background: var(--bg-card); border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: none; z-index: 99; max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-top: none; }
-        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--border-color); cursor: pointer; }
-        .user-item:hover { background: var(--hover-bg); }
+        .fb-header { background: #ffffff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dadde1; position: sticky; top: 0; z-index: 100; }
+        .fb-logo { color: #1877f2; font-size: 28px; font-weight: bold; letter-spacing: -1.5px; }
+        .fb-nav-icons { display: flex; gap: 10px; }
+        .fb-icon-btn { background: #e4e6eb; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; }
 
-        .post-card { background: var(--bg-card); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 12px; padding: 12px; border: 1px solid var(--border-color); }
-        .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
-        .post-body-text { font-size: 15px; color: var(--text-main); word-break: break-word; margin-bottom: 10px; line-height: 1.4; }
-        .post-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin-top: 6px; }
+        .card { background: #ffffff; border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 10px; }
         
-        .upload-label { display: block; background: var(--input-bg); color: var(--primary); padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 8px; border: 1px dashed var(--primary); }
+        .auth-container { padding: 20px; text-align: center; background: #f0f2f5; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .auth-logo { color: #1877f2; font-size: 40px; font-weight: bold; margin-bottom: 5px; }
+        .auth-sub { font-size: 16px; color: #606770; margin-bottom: 25px; }
+        
+        input, select, textarea { width: 100%; padding: 12px 14px; margin: 6px 0; border-radius: 6px; border: 1px solid #ccd0d5; background: #ffffff; color: #1d2129; font-size: 15px; outline: none; }
+        input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px #e7f3ff; }
+        
+        button { width: 100%; padding: 12px; margin-top: 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .btn-primary { background: #1877f2; color: #fff; }
+        .btn-primary:hover { background: #166fe5; }
+        .btn-success { background: #42b72a; color: #fff; font-size: 15px; width: auto; padding: 10px 20px; margin: 15px auto; display: inline-block; }
+        
+        .tab-group { display: flex; background: #ddd; border-radius: 6px; padding: 3px; margin-bottom: 15px; }
+        .tab-btn { background: transparent; border: none; padding: 8px; font-weight: bold; cursor: pointer; flex: 1; border-radius: 4px; color: #4b4f56; }
+        .tab-btn.active { background: #fff; color: #1877f2; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        .search-box-wrap { position: relative; padding: 8px 12px; background: #fff; border-bottom: 1px solid #dadde1; }
+        .search-results { position: absolute; left: 12px; right: 12px; background: #fff; border-radius: 0 0 8px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); display: none; z-index: 99; max-height: 250px; overflow-y: auto; border: 1px solid #dadde1; border-top: none; }
+        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f0f2f5; }
+
+        .post-card { background: #ffffff; border-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 8px; padding: 12px 0 0 0; }
+        .post-header { display: flex; align-items: center; gap: 10px; padding: 0 12px 8px 12px; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #dadde1; }
+        .post-body-text { padding: 0 12px 8px 12px; font-size: 15px; color: #050505; word-break: break-word; }
+        .post-image { width: 100%; max-height: 400px; object-fit: cover; }
+        
+        .upload-label { display: block; background: #f0f2f5; color: #4b4f56; padding: 8px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 8px; border: 1px dashed #ccd0d5; }
         input[type="file"] { display: none; }
-        .profile-view-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin: 12px; }
+
+        .post-actions { display: flex; justify-content: space-around; border-top: 1px solid #dadde1; border-bottom: 1px solid #dadde1; margin-top: 4px; padding: 2px 0; }
+        .action-btn { background: none; border: none; color: #606770; font-size: 13px; font-weight: bold; width: 100%; padding: 8px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 4px; }
+        .action-btn:hover { background: #f0f2f5; }
+
+        .comment-section { padding: 8px 12px; background: #f0f2f5; display: none; }
+        .comment-input-group { display: flex; gap: 6px; margin-top: 6px; }
+        .comment-input-group input { margin: 0; padding: 8px 12px; font-size: 13px; border-radius: 20px; background: #f0f2f5; border: 1px solid #ccd0d5; }
+        .comment-list { margin-top: 6px; font-size: 13px; color: #050505; background: #ffffff; padding: 8px 12px; border-radius: 18px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
     </style>
 </head>
-<body data-theme="light">
+<body>
 
 <div class="container">
-    <!-- Auth Screen (Default visible to prevent blank screen) -->
+    <!-- Auth Screen -->
     <div class="auth-container" id="authBox">
-        <div class="auth-logo">Anonymous1001</div>
-        <div class="auth-sub">Connect securely on the Anonymous1001 Social Network.</div>
+        <div class="auth-logo">facebook</div>
+        <div class="auth-sub">Connect with friends and the world around you on Facebook.</div>
 
         <div class="card" style="text-align: left; padding: 15px;">
             <div class="tab-group">
                 <button class="tab-btn active" id="btnLoginTab" onclick="switchTab('login')">Log In</button>
-                <button class="tab-btn" id="btnSignupTab" onclick="switchTab('signup')">Sign Up</button>
+                <button class="tab-btn" id="btnSignupTab" onclick="switchTab('signup')">Create Account</button>
             </div>
 
             <div id="loginForm">
-                <input type="email" id="loginEmail" placeholder="Email address">
+                <input type="email" id="loginEmail" placeholder="Email or phone number">
                 <input type="password" id="loginPassword" placeholder="Password">
                 <button class="btn-primary" onclick="handleAuth('login')">Log In</button>
             </div>
 
             <div id="signupForm" style="display: none;">
                 <input type="text" id="regFullName" placeholder="Full Name">
-                <input type="text" id="regUsername" placeholder="Username (e.g. @anonymous)">
+                <input type="text" id="regUsername" placeholder="Username (e.g. rashidumrani60)">
                 <input type="email" id="regEmail" placeholder="Email address">
                 <input type="password" id="regPassword" placeholder="New password">
-                <button class="btn-primary" style="margin-top: 8px;" onclick="handleAuth('signup')">Sign Up</button>
+                <button class="btn-success" style="width:100%; margin: 8px 0 0 0;" onclick="handleAuth('signup')">Sign Up</button>
             </div>
         </div>
     </div>
 
-    <!-- Main Feed Screen -->
+    <!-- Main Facebook Feed Screen -->
     <div id="feedBox" style="display: none;">
         <div class="fb-header">
-            <div class="fb-logo">Anonymous1001</div>
+            <div class="fb-logo">facebook</div>
             <div class="fb-nav-icons">
-                <button class="fb-icon-btn" onclick="toggleTheme()" id="themeToggleBtn">🌙 Dark</button>
-                <button class="fb-icon-btn" onclick="shareApp()">🔗 Share</button>
-                <button class="fb-icon-btn" onclick="toggleProfile()">👤 Profile</button>
+                <button class="fb-icon-btn" title="Profile" onclick="toggleProfile()">👤</button>
+                <button class="fb-icon-btn" title="Share App" onclick="shareAppWithFriends()">🔗</button>
             </div>
         </div>
 
-        <div class="card" id="profileBox" style="display: none; border: 1px solid var(--primary); margin: 12px;">
-            <h3 style="color: var(--text-main); margin-bottom: 10px;">Edit Profile</h3>
+        <div class="card" id="profileBox" style="display: none; margin: 10px; border: 1px solid #1877f2;">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
                 <img id="profilePicPreview" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar" style="width: 50px; height: 50px;">
                 <div>
-                    <h4 id="userProfileName" style="color: var(--text-main);">Loading...</h4>
-                    <p id="userProfileEmail" style="font-size: 12px; color: var(--text-sub);"></p>
+                    <h4 id="userProfileName" style="color: #050505;">Loading...</h4>
+                    <p id="userProfileEmail" style="font-size: 12px; color: #606770;"></p>
                 </div>
             </div>
-            <label style="font-size: 12px; color: var(--text-sub);">Full Name</label>
             <input type="text" id="editNameInput" placeholder="Update Name">
-            <label style="font-size: 12px; color: var(--text-sub);">Bio</label>
             <input type="text" id="editBioInput" placeholder="Update Bio">
-            <label style="font-size: 12px; color: var(--text-sub);">Profile Picture URL</label>
-            <input type="text" id="editPicUrlInput" placeholder="Profile Picture Direct Link">
-            <button class="btn-primary" onclick="saveProfileChanges()">Save Changes</button>
-            <button class="btn-primary" onclick="handleLogout()" style="background: #fa383e; color:#fff; margin-top: 5px;">Log Out</button>
-        </div>
-
-        <div id="viewOtherProfileBox" style="display: none;" class="profile-view-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <h3 style="color: var(--text-main); font-size: 16px;">User Profile</h3>
-                <button onclick="closeOtherProfile()" style="background: var(--input-bg); color: var(--text-main); border:none; padding:4px 8px; border-radius:4px; cursor:pointer; width:auto;">✕ Close</button>
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img id="viewUserPic" src="" class="avatar" style="width: 50px; height: 50px;">
-                <div>
-                    <h4 id="viewUserName" style="color: var(--text-main);"></h4>
-                    <p id="viewUserUsername" style="font-size: 12px; color: var(--text-sub);"></p>
-                </div>
-            </div>
-            <p style="font-size: 13px; color: var(--text-main); background: var(--input-bg); padding: 8px; border-radius: 6px;" id="viewUserBio">No bio available.</p>
+            <input type="text" id="editPicUrlInput" placeholder="Profile Picture URL">
+            <button class="btn-primary" onclick="saveProfileChanges()">Save Profile</button>
+            <button class="btn-primary" onclick="location.reload()" style="background: #fa383e; margin-top: 5px;">Log Out</button>
         </div>
 
         <div class="search-box-wrap">
-            <input type="text" id="searchInput" placeholder="🔍 Search registered users..." onkeyup="searchUsers()" style="margin: 0; border-radius: 20px;">
+            <input type="text" id="searchInput" placeholder="🔍 Search friends on Facebook..." onkeyup="searchUsers()" style="margin: 0; border-radius: 20px; background: #f0f2f5; border: none; padding-left: 15px;">
             <div id="searchResults" class="search-results"></div>
         </div>
 
-        <div class="card" style="margin-top: 4px;">
-            <textarea id="postContent" rows="2" placeholder="What's on your mind?" style="resize: none;"></textarea>
-            <label for="imageUpload" class="upload-label">📷 Choose Image from Gallery</label>
-            <input type="file" id="imageUpload" accept="image/*" onchange="handleImageSelection(this)">
-            <p id="imagePreviewText" style="font-size: 12px; color: var(--primary); margin-top: 4px; display: none;"></p>
-            <button class="btn-primary" onclick="createPost()">Post</button>
+        <div class="card" style="margin-top: 8px; padding: 12px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <img id="feedUserAvatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar">
+                <textarea id="postContent" rows="1" placeholder="What's on your mind?" style="border-radius: 20px; background: #f0f2f5; border: none; resize: none; padding: 10px 15px; margin: 0;"></textarea>
+            </div>
+            
+            <label for="imageUpload" class="upload-label">📷 Photo/Video</label>
+            <input type="file" id="imageUpload" accept="image/*" onchange="previewSelectedImage(this)">
+            <p id="imagePreviewText" style="font-size: 11px; color: #1877f2; margin-top: 4px; display: none;"></p>
+
+            <button class="btn-primary" onclick="createPost()" style="margin-top: 8px;">Post</button>
         </div>
 
         <div id="postsContainer"></div>
@@ -162,7 +142,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, onSnapshot, query, orderBy, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -180,48 +160,13 @@
 
   let currentUserData = {
     uid: "",
-    name: "Anonymous User",
-    username: "@anonymous",
+    name: "Facebook User",
+    username: "@user",
     email: "",
-    bio: "Welcome to Anonymous1001!",
+    bio: "Hey there! I am using Facebook.",
     photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   };
-  let pendingImageBase64 = "";
-
-  window.toggleTheme = () => {
-    const body = document.body;
-    const btn = document.getElementById('themeToggleBtn');
-    if(body.getAttribute('data-theme') === 'dark') {
-        body.setAttribute('data-theme', 'light');
-        btn.innerText = '🌙 Dark';
-    } else {
-        body.setAttribute('data-theme', 'dark');
-        btn.innerText = '☀️ Light';
-    }
-  };
-
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-        currentUserData.uid = user.uid;
-        try {
-            const docSnap = await getDoc(doc(db, "users", user.uid));
-            if(docSnap.exists()) {
-                currentUserData = docSnap.data();
-            } else {
-                currentUserData.email = user.email;
-                currentUserData.name = user.email ? user.email.split('@')[0] : "Anonymous User";
-                await setDoc(doc(db, "users", user.uid), currentUserData);
-            }
-            openFeed();
-        } catch (err) {
-            console.error(err);
-            openFeed();
-        }
-    } else {
-        document.getElementById('authBox').style.display = 'flex';
-        document.getElementById('feedBox').style.display = 'none';
-    }
-  });
+  let selectedImageDataUrl = "";
 
   window.switchTab = (tab) => {
     if(tab === 'login') {
@@ -239,6 +184,7 @@
 
   window.handleAuth = async (type) => {
     let email, password;
+
     if(type === 'signup') {
         const fullName = document.getElementById('regFullName').value.trim();
         const username = document.getElementById('regUsername').value.trim();
@@ -259,19 +205,33 @@
 
             await setDoc(doc(db, "users", res.user.uid), currentUserData);
             alert("Account created successfully!");
-        } catch (err) { alert("Error: " + err.message); }
+            openFeed();
+        } catch (err) { alert("Signup Error: " + err.message); }
+
     } else {
         email = document.getElementById('loginEmail').value.trim();
         password = document.getElementById('loginPassword').value.trim();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (err) { alert("Error: " + err.message); }
-    }
-  };
 
-  window.handleLogout = async () => {
-    await signOut(auth);
-    location.reload();
+        if(!email || !password) {
+            alert("Please enter email and password!");
+            return;
+        }
+
+        try {
+            const res = await signInWithEmailAndPassword(auth, email, password);
+            currentUserData.uid = res.user.uid;
+            
+            const docSnap = await getDoc(doc(db, "users", res.user.uid));
+            if(docSnap.exists()) {
+                currentUserData = docSnap.data();
+            } else {
+                currentUserData.email = email;
+                currentUserData.name = email.split('@')[0];
+            }
+            alert("Logged in successfully!");
+            openFeed();
+        } catch (err) { alert("Login Error: " + err.message); }
+    }
   };
 
   function openFeed() {
@@ -288,12 +248,12 @@
     document.getElementById('editBioInput').value = currentUserData.bio || '';
     document.getElementById('editPicUrlInput').value = currentUserData.photo || '';
     document.getElementById('profilePicPreview').src = currentUserData.photo;
+    document.getElementById('feedUserAvatar').src = currentUserData.photo;
   }
 
   window.toggleProfile = () => {
     const p = document.getElementById('profileBox');
     p.style.display = p.style.display === 'block' ? 'none' : 'block';
-    document.getElementById('viewOtherProfileBox').style.display = 'none';
   };
 
   window.saveProfileChanges = async () => {
@@ -301,7 +261,7 @@
     const newBio = document.getElementById('editBioInput').value.trim();
     const newPic = document.getElementById('editPicUrlInput').value.trim();
 
-    if(!newName) return alert("Name cannot be empty!");
+    if(!newName) return alert("Name field cannot be empty!");
 
     currentUserData.name = newName;
     currentUserData.bio = newBio;
@@ -329,7 +289,7 @@
     }
 
     resultsBox.style.display = 'block';
-    resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:var(--text-sub);">Searching...</p>';
+    resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:#606770;">Searching database...</p>';
 
     try {
         const querySnapshot = await getDocs(collection(db, "users"));
@@ -338,46 +298,106 @@
 
         querySnapshot.forEach((docSnap) => {
             const data = docSnap.data();
-            if((data.name && data.name.toLowerCase().includes(queryStr)) || (data.username && data.username.toLowerCase().includes(queryStr))) {
+            const nameMatch = data.name && data.name.toLowerCase().includes(queryStr);
+            const usernameMatch = data.username && data.username.toLowerCase().includes(queryStr);
+
+            if(nameMatch || usernameMatch) {
                 found = true;
-                const encodedData = encodeURIComponent(JSON.stringify(data));
                 html += `
-                    <div class="user-item" onclick="viewUserProfile('${encodedData}')">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <img src="${data.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}" class="avatar" style="width:36px; height:36px;">
+                    <div class="user-item">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <img src="${data.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}" class="avatar" style="width:35px; height:35px;">
                             <div>
-                                <div style="font-weight:bold; font-size:14px; color:var(--text-main);">${data.name}</div>
-                                <div style="font-size:11px; color:var(--text-sub);">${data.username || ''}</div>
+                                <div style="font-weight:bold; font-size:14px; color:#050505;">${data.name}</div>
+                                <div style="font-size:12px; color:#606770;">${data.username || ''}</div>
                             </div>
                         </div>
-                        <span style="font-size:12px; color:var(--primary); font-weight:bold;">View Profile</span>
+                        <button class="btn-primary" style="width:auto; padding:5px 12px; font-size:12px;" onclick="alert('Friend request sent to ${data.name}!')">Add Friend</button>
                     </div>
                 `;
             }
         });
-        resultsBox.innerHTML = found ? html : '<p style="padding:10px; font-size:13px; color:var(--text-sub);">No users found.</p>';
+
+        resultsBox.innerHTML = found ? html : '<p style="padding:10px; font-size:13px; color:#606770;">No user found.</p>';
     } catch(err) {
-        resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:red;">Search error</p>';
+        resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:red;">Search error: ' + err.message + '</p>';
     }
   };
 
-  window.viewUserProfile = (encodedStr) => {
-    const user = JSON.parse(decodeURIComponent(encodedStr));
-    document.getElementById('viewUserName').innerText = user.name;
-    document.getElementById('viewUserUsername').innerText = user.username || "";
-    document.getElementById('viewUserBio').innerText = user.bio || "No bio added yet.";
-    document.getElementById('viewUserPic').src = user.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
-    
-    document.getElementById('viewOtherProfileBox').style.display = 'block';
-    document.getElementById('profileBox').style.display = 'none';
-    document.getElementById('searchResults').style.display = 'none';
-    document.getElementById('searchInput').value = '';
-  };
-
-  window.closeOtherProfile = () => {
-    document.getElementById('viewOtherProfileBox').style.display = 'none';
-  };
-
-  window.handleImageSelection = (input) => {
+  window.previewSelectedImage = (input) => {
     if (input.files && input.files[0]) {
- 
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            selectedImageDataUrl = e.target.result;
+            const p = document.getElementById('imagePreviewText');
+            p.style.display = 'block';
+            p.innerText = "✓ Image attached: " + input.files[0].name;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  window.shareAppWithFriends = () => {
+    const siteUrl = window.location.href;
+    if (navigator.share) {
+        navigator.share({ title: 'Facebook', text: 'Check out this app!', url: siteUrl }).catch(() => {});
+    } else {
+        navigator.clipboard.writeText(siteUrl);
+        alert("Link copied to clipboard!");
+    }
+  };
+
+  window.createPost = async () => {
+    const text = document.getElementById('postContent').value.trim();
+    if(!text && !selectedImageDataUrl) {
+        alert("Please write something or attach an image!");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "posts"), {
+            authorName: currentUserData.name,
+            authorPhoto: currentUserData.photo,
+            text: text,
+            image: selectedImageDataUrl,
+            timestamp: Date.now()
+        });
+
+        document.getElementById('postContent').value = '';
+        document.getElementById('imageUpload').value = '';
+        document.getElementById('imagePreviewText').style.display = 'none';
+        selectedImageDataUrl = "";
+    } catch(err) {
+        alert("Error creating post: " + err.message);
+    }
+  };
+
+  function listenToRealtimePosts() {
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    onSnapshot(q, (snapshot) => {
+        const container = document.getElementById('postsContainer');
+        container.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+            const post = docSnap.data();
+            let imageHTML = post.image ? `<img src="${post.image}" class="post-image">` : '';
+            
+            container.innerHTML += `
+                <div class="post-card">
+                    <div class="post-header">
+                        <img src="${post.authorPhoto || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}" class="avatar">
+                        <div>
+                            <div style="font-weight:bold; color:#050505; font-size:14px;">${post.authorName}</div>
+                            <div style="font-size:11px; color:#606770;">Just now</div>
+                        </div>
+                    </div>
+                    <div class="post-body-text">${post.text || ''}</div>
+                    ${imageHTML}
+                </div>
+            `;
+        });
+    });
+  }
+</script>
+</body>
+                    </html>
+                        
