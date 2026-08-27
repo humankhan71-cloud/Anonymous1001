@@ -7,7 +7,6 @@
     <style>
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
         
-        /* Anonymous Mask Background */
         body { 
             background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
                         url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000&auto=format&fit=crop');
@@ -22,7 +21,7 @@
         
         .container { width: 100%; max-width: 500px; padding: 10px; }
 
-        .card { background: rgba(36, 37, 38, 0.9); backdrop-filter: blur(5px); border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); margin-bottom: 12px; border: 1px solid rgba(0, 242, 254, 0.2); }
+        .card { background: rgba(36, 37, 38, 0.95); backdrop-filter: blur(5px); border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); margin-bottom: 12px; border: 1px solid rgba(0, 242, 254, 0.2); }
         .logo { width: 85px; height: 85px; border-radius: 50%; border: 2px solid #00f2fe; margin-bottom: 10px; object-fit: cover; }
         h2 { color: #00f2fe; text-align: center; margin-bottom: 5px; text-shadow: 0 0 5px rgba(0,242,254,0.5); }
         p { color: #b0b3b8; font-size: 14px; text-align: center; margin-bottom: 12px; }
@@ -41,13 +40,13 @@
         .header-nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3b3c; padding-bottom: 8px; margin-bottom: 10px; }
         .nav-icons { display: flex; gap: 15px; font-size: 18px; cursor: pointer; }
 
-        .search-results { text-align: left; background: #3a3b3c; border-radius: 8px; padding: 8px; display: none; margin-top: 5px; }
-        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #4e4f50; }
+        .search-results { text-align: left; background: #242526; border-radius: 8px; padding: 8px; display: none; margin-top: 5px; border: 1px solid #00f2fe; }
+        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #3a3b3c; }
 
-        .post-card { background: rgba(36, 37, 38, 0.9); backdrop-filter: blur(5px); border-radius: 10px; padding: 12px; margin-bottom: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05); }
+        .post-card { background: rgba(36, 37, 38, 0.95); backdrop-filter: blur(5px); border-radius: 10px; padding: 12px; margin-bottom: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05); }
         .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1px solid #00f2fe; }
-        .post-image { width: 100%; border-radius: 8px; margin-top: 8px; max-height: 300px; object-fit: cover; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #00f2fe; }
+        .post-image { width: 100%; border-radius: 8px; margin-top: 8px; max-height: 350px; object-fit: cover; }
 
         .upload-label { display: block; background: #3a3b3c; color: #00f2fe; padding: 8px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 13px; font-weight: bold; margin-top: 5px; border: 1px dashed #00f2fe; }
         input[type="file"] { display: none; }
@@ -55,10 +54,6 @@
         .reactions-container { position: relative; width: 100%; }
         .post-actions { display: flex; justify-content: space-around; border-top: 1px solid #3a3b3c; border-bottom: 1px solid #3a3b3c; margin-top: 8px; padding: 5px 0; }
         .action-btn { background: none; border: none; color: #b0b3b8; font-size: 13px; width: auto; margin: 0; padding: 5px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        
-        .reaction-box { position: absolute; bottom: 35px; left: 0; background: #3a3b3c; border-radius: 30px; padding: 5px 10px; display: none; gap: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); z-index: 10; }
-        .reaction-box span { font-size: 20px; cursor: pointer; transition: transform 0.2s; }
-        .reaction-box span:hover { transform: scale(1.3); }
 
         .comment-section { margin-top: 8px; display: none; }
         .comment-input-group { display: flex; gap: 5px; margin-top: 6px; }
@@ -69,7 +64,8 @@
 <body>
 
 <div class="container">
-    <div class="card" id="authBox">
+    <!-- Auth Screen -->
+    <div class="card" id="authBox" style="text-align: center;">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg" class="logo" alt="Anonymous Mask Logo">
         <h2>Anonymous Network</h2>
         <p>Connect with friends secretly</p>
@@ -87,38 +83,55 @@
 
         <div id="signupForm" style="display: none; text-align: left;">
             <input type="text" id="regFullName" placeholder="Full Name">
-            <input type="text" id="regUsername" placeholder="Username (@name)">
+            <input type="text" id="regUsername" placeholder="Username (e.g. @john)">
             <input type="email" id="regEmail" placeholder="Email Address">
-            <input type="password" id="regPassword" placeholder="New Password (min 6 chars)">
-            <select id="regGender">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Custom">Custom / Anonymous</option>
-            </select>
+            <input type="password" id="regPassword" placeholder="Password (min 6 chars)">
             <button class="btn-success" onclick="handleAuth('signup')">Sign Up & Create Account</button>
         </div>
     </div>
 
+    <!-- Main Feed Screen -->
     <div id="feedBox" style="display: none;">
         <div class="card header-nav">
             <h3 style="color: #00f2fe;">Anonymous</h3>
             <div class="nav-icons">
-                <span title="Invite Friends" onclick="shareAppWithFriends()">📲 Share App</span>
-                <span title="Profile" onclick="toggleProfile()">👤</span>
+                <span title="Invite Friends" onclick="shareAppWithFriends()">📲 Share</span>
+                <span title="Edit Profile" onclick="toggleProfile()">👤 My Profile</span>
             </div>
         </div>
 
-        <div class="card" style="background: linear-gradient(45deg, #1877f2, #00f2fe); color: #fff; text-align: center;">
-            <h4 style="margin-bottom: 5px;">📲 Share with Friends!</h4>
-            <p style="color: #fff; font-size: 12px; margin-bottom: 8px;">Invite your friends to create an account and join your anonymous network.</p>
-            <button class="btn-secondary" style="background: #000; color: #fff;" onclick="shareAppWithFriends()">💬 Send via WhatsApp / Copy Link</button>
+        <!-- Profile Edit Card (Modal) -->
+        <div class="card" id="profileBox" style="display: none; text-align: left; border: 2px solid #00f2fe;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                <img id="profilePicPreview" src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg" class="avatar" style="width: 60px; height: 60px;">
+                <div>
+                    <h4 id="userProfileName" style="color: #00f2fe;">Loading...</h4>
+                    <p id="userProfileEmail" style="text-align: left; font-size: 12px; margin: 0;"></p>
+                </div>
+            </div>
+
+            <h5 style="color: #00f2fe; margin-top: 10px;">✏️ Edit Profile Info:</h5>
+            <label style="font-size: 12px; color: #b0b3b8;">Display Name:</label>
+            <input type="text" id="editNameInput" placeholder="Your Display Name">
+
+            <label style="font-size: 12px; color: #b0b3b8;">Bio / Status:</label>
+            <input type="text" id="editBioInput" placeholder="Write a quick bio...">
+
+            <label style="font-size: 12px; color: #b0b3b8;">Profile Picture URL (Paste image link):</label>
+            <input type="text" id="editPicUrlInput" placeholder="https://example.com/photo.jpg">
+
+            <button class="btn-primary" onclick="saveProfileChanges()" style="margin-top: 10px;">💾 Save Changes</button>
+            <button class="btn-secondary" onclick="toggleProfile()" style="margin-top: 5px;">Close Profile</button>
+            <button class="btn-secondary" onclick="location.reload()" style="margin-top: 5px; background: #d9534f; color: #fff;">🚪 Log Out</button>
         </div>
 
+        <!-- Real Search Bar -->
         <div class="card" style="padding: 8px;">
-            <input type="text" id="searchInput" placeholder="🔍 Search users, friends..." onkeyup="searchUsers()">
+            <input type="text" id="searchInput" placeholder="🔍 Search real registered users by name/username..." onkeyup="searchUsers()">
             <div id="searchResults" class="search-results"></div>
         </div>
 
+        <!-- Create Post Card -->
         <div class="card" style="text-align: left;">
             <textarea id="postContent" rows="2" placeholder="What's on your mind?"></textarea>
             
@@ -129,13 +142,6 @@
             <button class="btn-primary" onclick="createPost()">Post</button>
         </div>
 
-        <div class="card" id="profileBox" style="display: none; text-align: left;">
-            <h4>👤 My Account Profile</h4>
-            <p style="text-align: left;" id="userProfileName"></p>
-            <p style="text-align: left;" id="userProfileEmail"></p>
-            <button class="btn-secondary btn-small" onclick="location.reload()">Log Out</button>
-        </div>
-
         <div id="postsContainer"></div>
     </div>
 </div>
@@ -143,6 +149,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBatSGz6VLnIUJGo4wTLrKMDxfX6sRezng",
@@ -155,8 +162,16 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
-  let currentUserName = "Anonymous User";
+  let currentUserData = {
+    uid: "",
+    name: "Anonymous User",
+    username: "@anonymous",
+    email: "",
+    bio: "Using Anonymous Social Network!",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg"
+  };
   let selectedImageDataUrl = "";
 
   window.switchTab = (tab) => {
@@ -178,38 +193,144 @@
 
     if(type === 'signup') {
         const fullName = document.getElementById('regFullName').value.trim();
+        const username = document.getElementById('regUsername').value.trim();
         email = document.getElementById('regEmail').value.trim();
         password = document.getElementById('regPassword').value.trim();
-        if(!fullName || !email || !password) {
-            alert("Please fill out all registration fields!");
+
+        if(!fullName || !email || !password || !username) {
+            alert("Please fill all fields!");
             return;
         }
-        currentUserName = fullName;
+
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+            currentUserData.uid = res.user.uid;
+            currentUserData.name = fullName;
+            currentUserData.username = username.startsWith('@') ? username : '@' + username;
+            currentUserData.email = email;
+
+            // Save to Firestore Database
+            await setDoc(doc(db, "users", res.user.uid), currentUserData);
+            alert("Account created successfully!");
+            openFeed();
+        } catch (err) { alert(err.message); }
+
     } else {
         email = document.getElementById('loginEmail').value.trim();
         password = document.getElementById('loginPassword').value.trim();
-        if(!email || !password) {
-            alert("Please enter Email and Password!");
-            return;
-        }
-        currentUserName = email.split('@')[0];
+
+        try {
+            const res = await signInWithEmailAndPassword(auth, email, password);
+            currentUserData.uid = res.user.uid;
+            
+            // Fetch User profile from Firestore
+            const docSnap = await getDoc(doc(db, "users", res.user.uid));
+            if(docSnap.exists()) {
+                currentUserData = docSnap.data();
+            } else {
+                currentUserData.email = email;
+                currentUserData.name = email.split('@')[0];
+            }
+            alert("Logged in!");
+            openFeed();
+        } catch (err) { alert(err.message); }
     }
+  };
+
+  function openFeed() {
+    document.getElementById('authBox').style.display = 'none';
+    document.getElementById('feedBox').style.display = 'block';
+    updateProfileUI();
+    addPostToFeed('Anonymous Admin', 'Welcome to Anonymous Social Network! You can now edit your profile and search real users.', 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg');
+  }
+
+  function updateProfileUI() {
+    document.getElementById('userProfileName').innerText = currentUserData.name + " (" + (currentUserData.username || '@user') + ")";
+    document.getElementById('userProfileEmail').innerText = "Email: " + currentUserData.email;
+    document.getElementById('editNameInput').value = currentUserData.name;
+    document.getElementById('editBioInput').value = currentUserData.bio || '';
+    document.getElementById('editPicUrlInput').value = currentUserData.photo || '';
+    document.getElementById('profilePicPreview').src = currentUserData.photo || "https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg";
+  }
+
+  window.toggleProfile = () => {
+    const p = document.getElementById('profileBox');
+    p.style.display = p.style.display === 'block' ? 'none' : 'block';
+  };
+
+  window.saveProfileChanges = async () => {
+    const newName = document.getElementById('editNameInput').value.trim();
+    const newBio = document.getElementById('editBioInput').value.trim();
+    const newPic = document.getElementById('editPicUrlInput').value.trim();
+
+    if(!newName) return alert("Name field cannot be empty!");
+
+    currentUserData.name = newName;
+    currentUserData.bio = newBio;
+    if(newPic) currentUserData.photo = newPic;
 
     try {
-        if(type === 'signup') {
-            await createUserWithEmailAndPassword(auth, email, password);
-            alert("Account created successfully!");
+        await updateDoc(doc(db, "users", currentUserData.uid), {
+            name: newName,
+            bio: newBio,
+            photo: currentUserData.photo
+        });
+        alert("Profile Updated Successfully!");
+        updateProfileUI();
+        toggleProfile();
+    } catch (err) {
+        alert("Error updating profile: " + err.message);
+    }
+  };
+
+  // Real Database Search for Registered Users
+  window.searchUsers = async () => {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const resultsBox = document.getElementById('searchResults');
+
+    if(!query) {
+        resultsBox.style.display = 'none';
+        return;
+    }
+
+    resultsBox.style.display = 'block';
+    resultsBox.innerHTML = '<p style="font-size:12px; color:#00f2fe;">Searching database...</p>';
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        let html = '';
+        let found = false;
+
+        querySnapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const nameMatch = data.name && data.name.toLowerCase().includes(query);
+            const usernameMatch = data.username && data.username.toLowerCase().includes(query);
+
+            if(nameMatch || usernameMatch) {
+                found = true;
+                html += `
+                    <div class="user-item">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <img src="${data.photo || 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg'}" class="avatar" style="width:30px; height:30px;">
+                            <div>
+                                <div style="font-weight:bold; font-size:13px; color:#00f2fe;">${data.name}</div>
+                                <div style="font-size:11px; color:#b0b3b8;">${data.username || ''}</div>
+                            </div>
+                        </div>
+                        <button class="btn-primary btn-small" onclick="alert('Friend request sent to ${data.name}!')">➕ Add Friend</button>
+                    </div>
+                `;
+            }
+        });
+
+        if(!found) {
+            resultsBox.innerHTML = '<p style="font-size:12px; color:#b0b3b8;">No registered user found with that name.</p>';
         } else {
-            await signInWithEmailAndPassword(auth, email, password);
-            alert("Logged in successfully!");
+            resultsBox.innerHTML = html;
         }
-        document.getElementById('authBox').style.display = 'none';
-        document.getElementById('feedBox').style.display = 'block';
-        document.getElementById('userProfileName').innerText = "Name: " + currentUserName;
-        document.getElementById('userProfileEmail').innerText = "Email: " + email;
-        loadDefaultFeed();
-    } catch (error) {
-        alert("Firebase Error: " + error.message);
+
+    } catch(err) {
+        resultsBox.innerHTML = '<p style="font-size:12px; color:red;">Search error: ' + err.message + '</p>';
     }
   };
 
@@ -231,90 +352,53 @@
     const shareText = `Join my Anonymous Social Network! Create your account here: ${siteUrl}`;
     
     if (navigator.share) {
-        navigator.share({
-            title: 'Anonymous Social Network',
-            text: shareText,
-            url: siteUrl
-        }).catch(() => {});
+        navigator.share({ title: 'Anonymous Network', text: shareText, url: siteUrl }).catch(() => {});
     } else {
         navigator.clipboard.writeText(siteUrl);
-        alert("Website link copied to clipboard! Share it with your friends via WhatsApp or SMS.");
+        alert("Website link copied to clipboard!");
     }
-  };
-
-  window.searchUsers = () => {
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    const resultsBox = document.getElementById('searchResults');
-    
-    if(!query) {
-        resultsBox.style.display = 'none';
-        return;
-    }
-    
-    resultsBox.style.display = 'block';
-    resultsBox.innerHTML = `
-        <div class="user-item">
-            <span>👤 ${query}_user</span>
-            <button class="btn-primary btn-small" id="btn_${query}" onclick="sendFriendRequest('${query}')">➕ Add Friend</button>
-        </div>
-    `;
-  };
-
-  window.sendFriendRequest = (name) => {
-    const btn = document.getElementById('btn_' + name);
-    btn.innerText = "⏳ Request Sent";
-    btn.className = "btn-secondary btn-small";
-    alert("Friend request sent to " + name + "!");
   };
 
   let postCount = 0;
   window.createPost = () => {
     const text = document.getElementById('postContent').value.trim();
     if(!text && !selectedImageDataUrl) {
-        alert("Kuch likhein ya picture upload karein!");
+        alert("Kuch write karein ya image select karein!");
         return;
     }
     
-    addPostToFeed(currentUserName, text, selectedImageDataUrl);
+    addPostToFeed(currentUserData.name, text, selectedImageDataUrl, currentUserData.photo);
     document.getElementById('postContent').value = '';
     document.getElementById('imageUpload').value = '';
     document.getElementById('imagePreviewText').style.display = 'none';
     selectedImageDataUrl = "";
   };
 
-  function addPostToFeed(author, text, imgUrl = "") {
+  function addPostToFeed(author, text, imgUrl = "", userPic = "") {
     postCount++;
     const postId = 'post_' + postCount;
-    let imageHTML = imgUrl ? `<img src="${imgUrl}" class="post-image" onerror="this.style.display='none'">` : '';
+    let imageHTML = imgUrl ? `<img src="${imgUrl}" class="post-image">` : '';
+    let avatarSrc = userPic || "https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg";
 
     const postHTML = `
         <div class="post-card" id="${postId}">
             <div class="post-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_emblem.svg" class="avatar" alt="User">
+                <img src="${avatarSrc}" class="avatar" alt="User">
                 <div>
-                    <div style="font-weight: bold;">${author}</div>
+                    <div style="font-weight: bold; color:#00f2fe;">${author}</div>
                     <div style="font-size: 11px; color: #b0b3b8;">Just now</div>
                 </div>
             </div>
-            <div>${text}</div>
+            <div style="margin-top:5px;">${text}</div>
             ${imageHTML}
             
             <div class="reactions-container">
-                <div class="reaction-box" id="reactBox_${postId}">
-                    <span onclick="setReaction('${postId}', '👍', 'Like')">👍</span>
-                    <span onclick="setReaction('${postId}', '❤️', 'Love')">❤️</span>
-                    <span onclick="setReaction('${postId}', '😆', 'Haha')">😆</span>
-                    <span onclick="setReaction('${postId}', '😮', 'Wow')">😮</span>
-                    <span onclick="setReaction('${postId}', '😢', 'Sad')">😢</span>
-                    <span onclick="setReaction('${postId}', '🩴', 'Chapal')">🩴</span>
-                </div>
-
                 <div class="post-actions">
-                    <button class="action-btn" id="reactBtn_${postId}" onclick="toggleReactionBox('${postId}')">
-                        <span class="icon">👍</span> <span class="label">Like</span> (<span class="count">0</span>)
+                    <button class="action-btn" onclick="this.querySelector('.count').innerText = parseInt(this.querySelector('.count').innerText) + 1">
+                        👍 Like (<span class="count">0</span>)
                     </button>
                     <button class="action-btn" onclick="toggleCommentSection('${postId}')">💬 Comment</button>
-                    <button class="action-btn" onclick="shareAppWithFriends()">🔄 Share App</button>
+                    <button class="action-btn" onclick="shareAppWithFriends()">🔄 Share</button>
                 </div>
             </div>
             
@@ -330,24 +414,6 @@
     document.getElementById('postsContainer').insertAdjacentHTML('afterbegin', postHTML);
   }
 
-  window.toggleReactionBox = (postId) => {
-    const box = document.getElementById('reactBox_' + postId);
-    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
-  };
-
-  window.setReaction = (postId, icon, label) => {
-    const btn = document.getElementById('reactBtn_' + postId);
-    const box = document.getElementById('reactBox_' + postId);
-    
-    btn.querySelector('.icon').innerText = icon;
-    btn.querySelector('.label').innerText = label;
-    btn.querySelector('.label').style.color = '#00f2fe';
-    
-    let countSpan = btn.querySelector('.count');
-    countSpan.innerText = parseInt(countSpan.innerText) + 1;
-    box.style.display = 'none';
-  };
-
   window.toggleCommentSection = (postId) => {
     const section = document.getElementById('comments_' + postId);
     section.style.display = section.style.display === 'block' ? 'none' : 'block';
@@ -359,21 +425,13 @@
     if(!val) return;
     
     const container = document.querySelector(`#${postId} .comment-list-container`);
-    container.insertAdjacentHTML('beforeend', `<div class="comment-list"><b>${currentUserName}:</b> ${val}</div>`);
+    container.insertAdjacentHTML('beforeend', `<div class="comment-list"><b>${currentUserData.name}:</b> ${val}</div>`);
     input.value = '';
   };
-
-  window.toggleProfile = () => {
-    const p = document.getElementById('profileBox');
-    p.style.display = p.style.display === 'block' ? 'none' : 'block';
-  };
-
-  function loadDefaultFeed() {
-    addPostToFeed('Anonymous Admin', 'Welcome to Anonymous Social Network! Dark Hacker / Anonymous background theme applies perfectly. 🎉');
-  }
 </script>
 </body>
-    </html>
+</html>
+
     
   
 
