@@ -29,24 +29,15 @@
             --primary: #00bcd4;
         }
 
-        body { 
-            background-color: var(--bg-main); 
-            color: var(--text-main); 
-            display: flex; 
-            justify-content: center; 
-            min-height: 100vh; 
-        }
-        
+        body { background-color: var(--bg-main); color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; }
         .container { width: 100%; max-width: 500px; padding: 0; background: var(--bg-main); min-height: 100vh; position: relative; }
 
         .fb-header { background: var(--bg-card); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
         .fb-logo { color: var(--primary); font-size: 22px; font-weight: bold; letter-spacing: -1px; }
         .fb-nav-icons { display: flex; gap: 8px; align-items: center; }
         .fb-icon-btn { background: var(--input-bg); color: var(--primary); border: 1px solid var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-        .fb-icon-btn:hover { opacity: 0.9; }
 
         .card { background: var(--bg-card); border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 12px; border: 1px solid var(--border-color); }
-        
         .auth-container { padding: 20px; text-align: center; background: var(--bg-main); height: 100vh; display: flex; flex-direction: column; justify-content: center; }
         .auth-logo { color: var(--primary); font-size: 36px; font-weight: bold; margin-bottom: 5px; }
         .auth-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 20px; }
@@ -56,7 +47,6 @@
         
         button { width: 100%; padding: 12px; margin-top: 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; }
         .btn-primary { background: var(--primary); color: #000; }
-        .btn-primary:hover { opacity: 0.9; }
         
         .tab-group { display: flex; background: var(--input-bg); border-radius: 6px; padding: 3px; margin-bottom: 15px; }
         .tab-btn { background: transparent; border: none; padding: 8px; font-weight: bold; cursor: pointer; flex: 1; border-radius: 4px; color: var(--text-sub); font-size: 14px; }
@@ -74,23 +64,15 @@
         .post-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin-top: 6px; }
         
         .upload-label { display: block; background: var(--input-bg); color: var(--primary); padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 8px; border: 1px dashed var(--primary); }
-        .upload-label:hover { background: var(--hover-bg); }
         input[type="file"] { display: none; }
-
         .profile-view-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin: 12px; }
     </style>
 </head>
 <body data-theme="light">
 
 <div class="container">
-    <!-- Loading State Screen -->
-    <div id="loadingBox" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
-        <div style="color: var(--primary); font-size: 28px; font-weight: bold; margin-bottom: 10px;">Anonymous1001</div>
-        <p style="color: var(--text-sub); font-size: 14px;">Loading application...</p>
-    </div>
-
-    <!-- Auth Screen -->
-    <div class="auth-container" id="authBox" style="display: none;">
+    <!-- Auth Screen (Default visible to prevent blank screen) -->
+    <div class="auth-container" id="authBox">
         <div class="auth-logo">Anonymous1001</div>
         <div class="auth-sub">Connect securely on the Anonymous1001 Social Network.</div>
 
@@ -127,7 +109,6 @@
             </div>
         </div>
 
-        <!-- Profile Settings / Edit Modal -->
         <div class="card" id="profileBox" style="display: none; border: 1px solid var(--primary); margin: 12px;">
             <h3 style="color: var(--text-main); margin-bottom: 10px;">Edit Profile</h3>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
@@ -147,7 +128,6 @@
             <button class="btn-primary" onclick="handleLogout()" style="background: #fa383e; color:#fff; margin-top: 5px;">Log Out</button>
         </div>
 
-        <!-- Dynamic User Profile View Modal -->
         <div id="viewOtherProfileBox" style="display: none;" class="profile-view-box">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h3 style="color: var(--text-main); font-size: 16px;">User Profile</h3>
@@ -163,24 +143,19 @@
             <p style="font-size: 13px; color: var(--text-main); background: var(--input-bg); padding: 8px; border-radius: 6px;" id="viewUserBio">No bio available.</p>
         </div>
 
-        <!-- Search Bar -->
         <div class="search-box-wrap">
             <input type="text" id="searchInput" placeholder="🔍 Search registered users..." onkeyup="searchUsers()" style="margin: 0; border-radius: 20px;">
             <div id="searchResults" class="search-results"></div>
         </div>
 
-        <!-- Create Post Box -->
         <div class="card" style="margin-top: 4px;">
             <textarea id="postContent" rows="2" placeholder="What's on your mind?" style="resize: none;"></textarea>
-            
             <label for="imageUpload" class="upload-label">📷 Choose Image from Gallery</label>
             <input type="file" id="imageUpload" accept="image/*" onchange="handleImageSelection(this)">
             <p id="imagePreviewText" style="font-size: 12px; color: var(--primary); margin-top: 4px; display: none;"></p>
-
             <button class="btn-primary" onclick="createPost()">Post</button>
         </div>
 
-        <!-- Feed Container -->
         <div id="postsContainer"></div>
     </div>
 </div>
@@ -212,15 +187,6 @@
     photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   };
   let pendingImageBase64 = "";
-  let authResolved = false;
-
-  // Fallback timer: Agar 3 seconds mein firebase response na de toh login screen dikha do
-  setTimeout(() => {
-    if(!authResolved) {
-        document.getElementById('loadingBox').style.display = 'none';
-        document.getElementById('authBox').style.display = 'flex';
-    }
-  }, 3000);
 
   window.toggleTheme = () => {
     const body = document.body;
@@ -235,8 +201,6 @@
   };
 
   onAuthStateChanged(auth, async (user) => {
-    authResolved = true;
-    document.getElementById('loadingBox').style.display = 'none';
     if (user) {
         currentUserData.uid = user.uid;
         try {
@@ -390,4 +354,30 @@
                     </div>
                 `;
             }
-       
+        });
+        resultsBox.innerHTML = found ? html : '<p style="padding:10px; font-size:13px; color:var(--text-sub);">No users found.</p>';
+    } catch(err) {
+        resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:red;">Search error</p>';
+    }
+  };
+
+  window.viewUserProfile = (encodedStr) => {
+    const user = JSON.parse(decodeURIComponent(encodedStr));
+    document.getElementById('viewUserName').innerText = user.name;
+    document.getElementById('viewUserUsername').innerText = user.username || "";
+    document.getElementById('viewUserBio').innerText = user.bio || "No bio added yet.";
+    document.getElementById('viewUserPic').src = user.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    
+    document.getElementById('viewOtherProfileBox').style.display = 'block';
+    document.getElementById('profileBox').style.display = 'none';
+    document.getElementById('searchResults').style.display = 'none';
+    document.getElementById('searchInput').value = '';
+  };
+
+  window.closeOtherProfile = () => {
+    document.getElementById('viewOtherProfileBox').style.display = 'none';
+  };
+
+  window.handleImageSelection = (input) => {
+    if (input.files && input.files[0]) {
+ 
