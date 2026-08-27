@@ -212,6 +212,15 @@
     photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   };
   let pendingImageBase64 = "";
+  let authResolved = false;
+
+  // Fallback timer: Agar 3 seconds mein firebase response na de toh login screen dikha do
+  setTimeout(() => {
+    if(!authResolved) {
+        document.getElementById('loadingBox').style.display = 'none';
+        document.getElementById('authBox').style.display = 'flex';
+    }
+  }, 3000);
 
   window.toggleTheme = () => {
     const body = document.body;
@@ -226,6 +235,7 @@
   };
 
   onAuthStateChanged(auth, async (user) => {
+    authResolved = true;
     document.getElementById('loadingBox').style.display = 'none';
     if (user) {
         currentUserData.uid = user.uid;
@@ -380,12 +390,4 @@
                     </div>
                 `;
             }
-        });
-        resultsBox.innerHTML = found ? html : '<p style="padding:10px; font-size:13px; color:var(--text-sub);">No users found.</p>';
-    } catch(err) {
-        resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:red;">Search error</p>';
-    }
-  };
-
-  window.viewUserProfile = (encodedStr) => {
-    const user = JSON.parse(
+       
