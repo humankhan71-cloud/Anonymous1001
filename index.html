@@ -3,394 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>memegem - Connect & Share</title>
+    <title>Hi - Chat App</title>
     <style>
-        * { box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-        
-        body { 
-            background-color: #f0f2f5; 
-            color: #050505; 
-            display: flex; 
-            justify-content: center; 
-            min-height: 100vh; 
-        }
-        
-        .container { width: 100%; max-width: 500px; padding: 0; background: #f0f2f5; min-height: 100vh; }
-
-        .fb-header { background: #ffffff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #dadde1; position: sticky; top: 0; z-index: 100; }
-        .fb-logo { color: #1877f2; font-size: 28px; font-weight: bold; letter-spacing: -1.5px; }
-        .fb-nav-icons { display: flex; gap: 10px; }
-        .fb-icon-btn { background: #e4e6eb; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; }
-
-        .card { background: #ffffff; border-radius: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 10px; }
-        
-        .auth-container { padding: 20px; text-align: center; background: #f0f2f5; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .auth-logo { color: #1877f2; font-size: 40px; font-weight: bold; margin-bottom: 5px; }
-        .auth-sub { font-size: 16px; color: #606770; margin-bottom: 25px; }
-        
-        input, select, textarea { width: 100%; padding: 12px 14px; margin: 6px 0; border-radius: 6px; border: 1px solid #ccd0d5; background: #ffffff; color: #1d2129; font-size: 15px; outline: none; }
-        input:focus { border-color: #1877f2; box-shadow: 0 0 0 2px #e7f3ff; }
-        
-        button { width: 100%; padding: 12px; margin-top: 8px; border-radius: 6px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
-        .btn-primary { background: #1877f2; color: #fff; }
-        .btn-primary:hover { background: #166fe5; }
-        .btn-success { background: #42b72a; color: #fff; font-size: 15px; width: auto; padding: 10px 20px; margin: 15px auto; display: inline-block; }
-        
-        .tab-group { display: flex; background: #ddd; border-radius: 6px; padding: 3px; margin-bottom: 15px; }
-        .tab-btn { background: transparent; border: none; padding: 8px; font-weight: bold; cursor: pointer; flex: 1; border-radius: 4px; color: #4b4f56; }
-        .tab-btn.active { background: #fff; color: #1877f2; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-
-        .search-box-wrap { position: relative; padding: 8px 12px; background: #fff; border-bottom: 1px solid #dadde1; }
-        .search-results { position: absolute; left: 12px; right: 12px; background: #fff; border-radius: 0 0 8px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); display: none; z-index: 99; max-height: 250px; overflow-y: auto; border: 1px solid #dadde1; border-top: none; }
-        .user-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f0f2f5; cursor: pointer; }
-        .user-item:hover { background: #f0f2f5; }
-
-        .post-card { background: #ffffff; border-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); margin-bottom: 8px; padding: 12px 0 0 0; }
-        .post-header { display: flex; align-items: center; gap: 10px; padding: 0 12px 8px 12px; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #dadde1; }
-        .post-body-text { padding: 0 12px 8px 12px; font-size: 15px; color: #050505; word-break: break-word; }
-        .post-image { width: 100%; max-height: 400px; object-fit: cover; }
-        
-        .upload-label { display: block; background: #f0f2f5; color: #4b4f56; padding: 8px; border-radius: 6px; text-align: center; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 8px; border: 1px dashed #ccd0d5; }
-        input[type="file"] { display: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { width: 100%; max-width: 450px; background: white; height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        @media(min-width: 480px) { .container { height: 85vh; border-radius: 10px; } }
+        .header { background: #075e54; color: white; padding: 15px; text-align: center; font-size: 20px; font-weight: bold; }
+        .screen { flex: 1; display: flex; flex-direction: column; padding: 20px; justify-content: center; align-items: center; }
+        .hidden { display: none !important; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #25d366; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:hover { background: #1ebe5d; }
+        .chat-box { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 10px; background: #e5ded8; }
+        .message { max-width: 70%; padding: 10px; border-radius: 8px; font-size: 14px; word-break: break-word; }
+        .incoming { background: white; align-self: flex-start; }
+        .outgoing { background: #dcf8c6; align-self: flex-end; }
+        .chat-input-area { display: flex; padding: 10px; background: #f0f0f0; gap: 10px; }
+        .chat-input-area input { margin: 0; flex: 1; }
+        .chat-input-area button { width: 80px; margin: 0; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="auth-container" id="authBox">
-        <div class="auth-logo">memegem</div>
-        <div class="auth-sub">Connect with friends and the world around you on memegem.</div>
+    <div class="header">Hi</div>
 
-        <div class="card" style="text-align: left; padding: 15px;">
-            <div class="tab-group">
-                <button class="tab-btn active" id="btnLoginTab" onclick="switchTab('login')">Log In</button>
-                <button class="tab-btn" id="btnSignupTab" onclick="switchTab('signup')">Create Account</button>
-            </div>
-
-            <div id="loginForm">
-                <input type="email" id="loginEmail" placeholder="Email or phone number">
-                <input type="password" id="loginPassword" placeholder="Password">
-                <button class="btn-primary" onclick="handleAuth('login')">Log In</button>
-            </div>
-
-            <div id="signupForm" style="display: none;">
-                <input type="text" id="regFullName" placeholder="Full Name">
-                <input type="text" id="regUsername" placeholder="Username (e.g. rashidumrani60)">
-                <input type="email" id="regEmail" placeholder="Email address">
-                <input type="password" id="regPassword" placeholder="New password">
-                <button class="btn-success" style="width:100%; margin: 8px 0 0 0;" onclick="handleAuth('signup')">Sign Up</button>
-            </div>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="screen">
+        <h2>Login with Phone</h2>
+        <input type="text" id="phone-number" placeholder="Phone (+923001234567)">
+        <button id="send-otp-btn">Send OTP</button>
+        <div id="recaptcha-container"></div>
+        
+        <div id="otp-box" class="hidden" style="width: 100%; margin-top: 20px;">
+            <input type="text" id="otp-code" placeholder="Enter 6-digit OTP">
+            <button id="verify-otp-btn">Verify OTP</button>
         </div>
     </div>
 
-    <div id="feedBox" style="display: none;">
-        <div class="fb-header">
-            <div class="fb-logo">memegem</div>
-            <div class="fb-nav-icons">
-                <button class="fb-icon-btn" title="Profile" onclick="toggleProfile()">👤</button>
-                <button class="fb-icon-btn" title="Share App" onclick="shareAppWithFriends()">🔗</button>
-            </div>
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen hidden" style="padding: 0;">
+        <div id="chat-messages" class="chat-box"></div>
+        <div class="chat-input-area">
+            <input type="text" id="msg-input" placeholder="Type a message...">
+            <button id="send-msg-btn">Send</button>
         </div>
-
-        <div class="card" id="profileBox" style="display: none; margin: 10px; border: 1px solid #1877f2;">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <img id="profilePicPreview" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar" style="width: 50px; height: 50px;">
-                <div>
-                    <h4 id="userProfileName" style="color: #050505;">Loading...</h4>
-                    <p id="userProfileEmail" style="font-size: 12px; color: #606770;"></p>
-                </div>
-            </div>
-            <p id="userProfileBio" style="font-size: 13px; color: #4b4f56; margin-bottom: 10px;"></p>
-            <input type="text" id="editNameInput" placeholder="Update Name">
-            <input type="text" id="editBioInput" placeholder="Update Bio">
-            <input type="text" id="editPicUrlInput" placeholder="Profile Picture URL">
-            <button class="btn-primary" onclick="saveProfileChanges()">Save Profile</button>
-            <button class="btn-primary" onclick="location.reload()" style="background: #fa383e; margin-top: 5px;">Log Out</button>
-        </div>
-
-        <div class="search-box-wrap">
-            <input type="text" id="searchInput" placeholder="🔍 Search friends on memegem..." onkeyup="searchUsers()" style="margin: 0; border-radius: 20px; background: #f0f2f5; border: none; padding-left: 15px;">
-            <div id="searchResults" class="search-results"></div>
-        </div>
-
-        <div class="card" style="margin-top: 8px; padding: 12px;">
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <img id="feedUserAvatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar">
-                <textarea id="postContent" rows="1" placeholder="What's on your mind?" style="border-radius: 20px; background: #f0f2f5; border: none; resize: none; padding: 10px 15px; margin: 0;"></textarea>
-            </div>
-            
-            <label for="imageUpload" class="upload-label">📷 Photo/Video</label>
-            <input type="file" id="imageUpload" accept="image/*" onchange="previewSelectedImage(this)">
-            <p id="imagePreviewText" style="font-size: 11px; color: #1877f2; margin-top: 4px; display: none;"></p>
-
-            <button class="btn-primary" onclick="createPost()" style="margin-top: 8px;">Post</button>
-        </div>
-
-        <div id="postsContainer"></div>
     </div>
 </div>
 
-<div id="friendModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
-    <div style="background:#fff; width:90%; max-width:400px; padding:20px; border-radius:8px; text-align:center; position:relative;">
-        <button onclick="closeFriendProfile()" style="position:absolute; top:10px; right:10px; width:auto; padding:5px 10px; background:#ddd; border:none; border-radius:50%; cursor:pointer;">✕</button>
-        <img id="modalFriendPic" src="" class="avatar" style="width:80px; height:80px; margin:0 auto 10px auto;">
-        <h3 id="modalFriendName" style="margin-bottom:5px;"></h3>
-        <p id="modalFriendUsername" style="color:#606770; font-size:13px; margin-bottom:10px;"></p>
-        <p id="modalFriendBio" style="font-size:14px; color:#050505; background:#f0f2f5; padding:10px; border-radius:6px;"></p>
-    </div>
-</div>
-
+<!-- Firebase SDKs -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, onSnapshot, query, orderBy, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBatSGz6VLnIUJGo4wTLrKMDxfX6sRezng",
-    authDomain: "anonymous1001-d2a27.firebaseapp.com",
-    projectId: "anonymous1001-d2a27",
-    storageBucket: "anonymous1001-d2a27.appspot.com",
-    messagingSenderId: "668671657253",
-    appId: "1:668671657253:web:203f5154f7b329595446cc"
-  };
+    // Yahan apni Firebase Console ki config details paste karein
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  let currentUserData = {
-    uid: "",
-    name: "User",
-    username: "@user",
-    email: "",
-    bio: "Hey there! I am using memegem.",
-    photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  };
-  let selectedImageDataUrl = "";
+    auth.languageCode = 'en';
 
-  window.switchTab = (tab) => {
-    if(tab === 'login') {
-        document.getElementById('loginForm').style.display = 'block';
-        document.getElementById('signupForm').style.display = 'none';
-        document.getElementById('btnLoginTab').classList.add('active');
-        document.getElementById('btnSignupTab').classList.remove('active');
-    } else {
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('signupForm').style.display = 'block';
-        document.getElementById('btnSignupTab').classList.add('active');
-        document.getElementById('btnLoginTab').classList.remove('active');
-    }
-  };
-
-  window.handleAuth = async (type) => {
-    let email, password;
-
-    if(type === 'signup') {
-        const fullName = document.getElementById('regFullName').value.trim();
-        const username = document.getElementById('regUsername').value.trim();
-        email = document.getElementById('regEmail').value.trim();
-        password = document.getElementById('regPassword').value.trim();
-
-        if(!fullName || !email || !password || !username) {
-            alert("Please fill all fields!");
-            return;
-        }
-
-        try {
-            const res = await createUserWithEmailAndPassword(auth, email, password);
-            currentUserData.uid = res.user.uid;
-            currentUserData.name = fullName;
-            currentUserData.username = username.startsWith('@') ? username : '@' + username;
-            currentUserData.email = email;
-
-            await setDoc(doc(db, "users", res.user.uid), currentUserData);
-            alert("Account created successfully!");
-            openFeed();
-        } catch (err) { alert("Signup Error: " + err.message); }
-
-    } else {
-        email = document.getElementById('loginEmail').value.trim();
-        password = document.getElementById('loginPassword').value.trim();
-
-        if(!email || !password) {
-            alert("Please enter email and password!");
-            return;
-        }
-
-        try {
-            const res = await signInWithEmailAndPassword(auth, email, password);
-            currentUserData.uid = res.user.uid;
-            
-            const docRef = doc(db, "users", res.user.uid);
-            const docSnap = await getDoc(docRef);
-            
-            if(docSnap.exists()) {
-                currentUserData = docSnap.data();
-            } else {
-                // Agar Firestore mein user ka data missing ho to auto create kar dega
-                currentUserData.email = email;
-                currentUserData.name = email.split('@')[0];
-                currentUserData.username = '@' + email.split('@')[0];
-                await setDoc(docRef, currentUserData);
-            }
-            alert("Logged in successfully!");
-            openFeed();
-        } catch (err) { alert("Login Error: " + err.message); }
-    }
-  };
-
-  function openFeed() {
-    document.getElementById('authBox').style.display = 'none';
-    document.getElementById('feedBox').style.display = 'block';
-    updateProfileUI();
-    listenToRealtimePosts();
-  }
-
-  function updateProfileUI() {
-    document.getElementById('userProfileName').innerText = currentUserData.name;
-    document.getElementById('userProfileEmail').innerText = currentUserData.username || currentUserData.email;
-    document.getElementById('userProfileBio').innerText = currentUserData.bio || '';
-    document.getElementById('editNameInput').value = currentUserData.name;
-    document.getElementById('editBioInput').value = currentUserData.bio || '';
-    document.getElementById('editPicUrlInput').value = currentUserData.photo || '';
-    document.getElementById('profilePicPreview').src = currentUserData.photo;
-    document.getElementById('feedUserAvatar').src = currentUserData.photo;
-  }
-
-  window.toggleProfile = () => {
-    const p = document.getElementById('profileBox');
-    p.style.display = p.style.display === 'block' ? 'none' : 'block';
-  };
-
-  window.saveProfileChanges = async () => {
-    const newName = document.getElementById('editNameInput').value.trim();
-    const newBio = document.getElementById('editBioInput').value.trim();
-    const newPic = document.getElementById('editPicUrlInput').value.trim();
-
-    if(!newName) return alert("Name field cannot be empty!");
-
-    currentUserData.name = newName;
-    currentUserData.bio = newBio;
-    if(newPic) currentUserData.photo = newPic;
-
-    try {
-        await updateDoc(doc(db, "users", currentUserData.uid), {
-            name: newName,
-            bio: newBio,
-            photo: currentUserData.photo
+    window.addEventListener('load', () => {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            'size': 'invisible'
         });
-        alert("Profile Updated Successfully!");
-        updateProfileUI();
-        toggleProfile();
-    } catch (err) { alert("Error: " + err.message); }
-  };
+    });
 
-  window.searchUsers = async () => {
-    const queryStr = document.getElementById('searchInput').value.toLowerCase().trim();
-    const resultsBox = document.getElementById('searchResults');
+    document.getElementById('send-otp-btn').addEventListener('click', () => {
+        const phoneNumber = document.getElementById('phone-number').value;
+        const appVerifier = window.recaptchaVerifier;
+        
+        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                alert("OTP Sent Successfully!");
+                document.getElementById('otp-box').classList.remove('hidden');
+            }).catch((error) => {
+                console.error("SMS not sent", error);
+                alert("Error sending OTP. Check console.");
+            });
+    });
 
-    if(!queryStr) {
-        resultsBox.style.display = 'none';
-        return;
-    }
-
-    resultsBox.style.display = 'block';
-    resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:#606770;">Searching database...</p>';
-
-    try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        let html = '';
-        let found = false;
-
-        querySnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const nameMatch = data.name && data.name.toLowerCase().includes(queryStr);
-            const usernameMatch = data.username && data.username.toLowerCase().includes(queryStr);
-
-            if(nameMatch || usernameMatch) {
-                found = true;
-                const safeName = (data.name || '').replace(/'/g, "\\'");
-                const safeUsername = (data.username || '').replace(/'/g, "\\'");
-                const safeBio = (data.bio || 'No bio available').replace(/'/g, "\\'");
-                const safePhoto = data.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
-
-                html += `
-                    <div class="user-item" onclick="openFriendProfile('${safeName}', '${safeUsername}', '${safeBio}', '${safePhoto}')">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <img src="${safePhoto}" class="avatar" style="width:35px; height:35px;">
-                            <div>
-                                <div style="font-weight:bold; font-size:14px; color:#050505;">${data.name}</div>
-                                <div style="font-size:12px; color:#606770;">${data.username || ''}</div>
-                            </div>
-                        </div>
-                        <span style="font-size:12px; color:#1877f2; font-weight:bold;">View Profile</span>
-                    </div>
-                `;
-            }
+    document.getElementById('verify-otp-btn').addEventListener('click', () => {
+        const code = document.getElementById('otp-code').value;
+        window.confirmationResult.confirm(code).then((result) => {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('chat-screen').classList.remove('hidden');
+            loadMessages();
+        }).catch((error) => {
+            alert("Invalid OTP Code");
         });
+    });
 
-        resultsBox.innerHTML = found ? html : '<p style="padding:10px; font-size:13px; color:#606770;">No user found.</p>';
-    } catch(err) {
-        resultsBox.innerHTML = '<p style="padding:10px; font-size:13px; color:red;">Search error: ' + err.message + '</p>';
-    }
-  };
-
-  window.openFriendProfile = (name, username, bio, photo) => {
-    document.getElementById('modalFriendName').innerText = name;
-    document.getElementById('modalFriendUsername').innerText = username;
-    document.getElementById('modalFriendBio').innerText = bio;
-    document.getElementById('modalFriendPic').src = photo;
-    document.getElementById('friendModal').style.display = 'flex';
-    document.getElementById('searchResults').style.display = 'none';
-  };
-
-  window.closeFriendProfile = () => {
-    document.getElementById('friendModal').style.display = 'none';
-  };
-
-  window.previewSelectedImage = (input) => {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            selectedImageDataUrl = e.target.result;
-            const p = document.getElementById('imagePreviewText');
-            p.style.display = 'block';
-            p.innerText = "✓ Image attached: " + input.files[0].name;
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-  };
-
-  window.shareAppWithFriends = () => {
-    const siteUrl = window.location.href;
-    if (navigator.share) {
-        navigator.share({ title: 'memegem', text: 'Check out this app!', url: siteUrl }).catch(() => {});
-    } else {
-        navigator.clipboard.writeText(siteUrl);
-        alert("Link copied to clipboard!");
-    }
-  };
-
-  window.createPost = async () => {
-    const text = document.getElementById('postContent').value.trim();
-    if(!text && !selectedImageDataUrl) {
-        alert("Please write something or attach an image!");
-        return;
-    }
-
-    try {
-        await addDoc(collection(db, "posts"), {
-            authorName: currentUserData.name,
-            authorPhoto: currentUserData.photo,
+    document.getElementById('send-msg-btn').addEventListener('click', async () => {
+        const text = document.getElementById('msg-input').value;
+        if(text.trim() === "") return;
+        
+        await addDoc(collection(db, "messages"), {
             text: text,
-            image: selectedImageDataUrl,
-            timestamp: Date.now()
+            uid: auth.currentUser.uid,
+            phone: auth.currentUser.phoneNumber,
+            createdAt: serverTimestamp()
         });
+        document.getElementById('msg-input').value = "";
+    });
 
-        document.getElementById('postContent').value = '';
-        document.getElementById('imageUpload').value = '';
-        document.getElementById('imagePreviewText').style.display = 'none';
-        selectedImageDataUrl = "";
-    } catch(err) {
-        alert("Error creating post: " + err.messa
+    function loadMessages() {
+        const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
+        onSnapshot(q, (snapshot) => {
+            const chatBox = document.getElementById('chat-messages');
+            chatBox.innerHTML = "";
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const div = document.createElement('div');
+                div.className = `message ${data.uid === auth.currentUser.uid ? 'outgoing' : 'incoming'}`;
+                div.innerText = `${data.text}`;
+                chatBox.appendChild(div);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    }
+</script>
+
+</body>
+    </html>
+    
