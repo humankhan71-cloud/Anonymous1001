@@ -58,7 +58,7 @@
     import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Yahan apni Firebase Console ki config details paste karein
+    // Yahan apni Firebase Console ki config details dalein
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
         authDomain: "YOUR_AUTH_DOMAIN",
@@ -76,7 +76,10 @@
 
     window.addEventListener('load', () => {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-            'size': 'invisible'
+            'size': 'invisible',
+            'callback': (response) => {
+                // reCAPTCHA solved
+            }
         });
     });
 
@@ -90,8 +93,8 @@
                 alert("OTP Sent Successfully!");
                 document.getElementById('otp-box').classList.remove('hidden');
             }).catch((error) => {
-                console.error("SMS not sent", error);
-                alert("Error sending OTP. Check console.");
+                console.error("SMS Error:", error);
+                alert("Error sending OTP: " + error.message);
             });
     });
 
@@ -102,7 +105,7 @@
             document.getElementById('chat-screen').classList.remove('hidden');
             loadMessages();
         }).catch((error) => {
-            alert("Invalid OTP Code");
+            alert("Invalid OTP Code: " + error.message);
         });
     });
 
@@ -137,5 +140,4 @@
 </script>
 
 </body>
-    </html>
-    
+</html>
