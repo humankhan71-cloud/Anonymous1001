@@ -58,7 +58,6 @@
 <body>
 
 <div class="container">
-    <!-- Auth Screen -->
     <div class="auth-container" id="authBox">
         <div class="auth-logo">memegem</div>
         <div class="auth-sub">Connect with friends and the world around you on memegem.</div>
@@ -85,7 +84,6 @@
         </div>
     </div>
 
-    <!-- Main Feed Screen -->
     <div id="feedBox" style="display: none;">
         <div class="fb-header">
             <div class="fb-logo">memegem</div>
@@ -95,7 +93,6 @@
             </div>
         </div>
 
-        <!-- Profile Drawer / Modal -->
         <div class="card" id="profileBox" style="display: none; margin: 10px; border: 1px solid #1877f2;">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
                 <img id="profilePicPreview" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar" style="width: 50px; height: 50px;">
@@ -112,13 +109,11 @@
             <button class="btn-primary" onclick="location.reload()" style="background: #fa383e; margin-top: 5px;">Log Out</button>
         </div>
 
-        <!-- Search Bar -->
         <div class="search-box-wrap">
             <input type="text" id="searchInput" placeholder="🔍 Search friends on memegem..." onkeyup="searchUsers()" style="margin: 0; border-radius: 20px; background: #f0f2f5; border: none; padding-left: 15px;">
             <div id="searchResults" class="search-results"></div>
         </div>
 
-        <!-- Create Post Box -->
         <div class="card" style="margin-top: 8px; padding: 12px;">
             <div style="display: flex; gap: 10px; align-items: center;">
                 <img id="feedUserAvatar" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar">
@@ -136,7 +131,6 @@
     </div>
 </div>
 
-<!-- Friend Profile Modal Popup -->
 <div id="friendModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
     <div style="background:#fff; width:90%; max-width:400px; padding:20px; border-radius:8px; text-align:center; position:relative;">
         <button onclick="closeFriendProfile()" style="position:absolute; top:10px; right:10px; width:auto; padding:5px 10px; background:#ddd; border:none; border-radius:50%; cursor:pointer;">✕</button>
@@ -228,12 +222,17 @@
             const res = await signInWithEmailAndPassword(auth, email, password);
             currentUserData.uid = res.user.uid;
             
-            const docSnap = await getDoc(doc(db, "users", res.user.uid));
+            const docRef = doc(db, "users", res.user.uid);
+            const docSnap = await getDoc(docRef);
+            
             if(docSnap.exists()) {
                 currentUserData = docSnap.data();
             } else {
+                // Agar Firestore mein user ka data missing ho to auto create kar dega
                 currentUserData.email = email;
                 currentUserData.name = email.split('@')[0];
+                currentUserData.username = '@' + email.split('@')[0];
+                await setDoc(docRef, currentUserData);
             }
             alert("Logged in successfully!");
             openFeed();
@@ -311,7 +310,7 @@
 
             if(nameMatch || usernameMatch) {
                 found = true;
-                const safeName = data.name.replace(/'/g, "\\'");
+                const safeName = (data.name || '').replace(/'/g, "\\'");
                 const safeUsername = (data.username || '').replace(/'/g, "\\'");
                 const safeBio = (data.bio || 'No bio available').replace(/'/g, "\\'");
                 const safePhoto = data.photo || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
@@ -394,9 +393,4 @@
         document.getElementById('imagePreviewText').style.display = 'none';
         selectedImageDataUrl = "";
     } catch(err) {
-        alert("Error creating post: " + err.message);
-    }
-  };
-
-  function listenToRealtimePosts() {
-    const q = query(co
+        alert("Error creating post: " + err.messa
